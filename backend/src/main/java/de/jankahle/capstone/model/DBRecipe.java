@@ -17,4 +17,12 @@ public class DBRecipe {
     private String id;
     private String name;
     private List<Ingredient> ingredients;
+
+    public Recipe toRecipe(){
+        return Recipe.builder()
+                .id(id)
+                .name(name)
+                .ingredients(ingredients)
+                .build();
+    }
 }
