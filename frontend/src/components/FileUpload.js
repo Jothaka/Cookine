@@ -19,7 +19,7 @@ export function FileUpload() {
     return (
         <form onSubmit={onFormSubmit}>
             <h1>File Upload</h1>
-            <input type="file" name="file" onChange={onChange}/>
+            <input type="file" name="file" onChange={onChange} accept="image/*"/>
             <button type="submit">Upload</button>
         </form>
     );

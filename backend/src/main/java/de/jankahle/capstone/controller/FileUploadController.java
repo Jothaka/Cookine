@@ -1,5 +1,6 @@
 package de.jankahle.capstone.controller;
 
+import de.jankahle.capstone.utility.ImageUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,10 @@ public class FileUploadController {
         if(file.isEmpty()) {
             throw new RuntimeException("File is empty");
         }
-        return "Upload successful";
+
+        if(ImageUtility.IsContentTypeValid(file.getContentType())) {
+            return  "Upload successful";
+        }
+        return "Wrong filetype";
     }
 }
