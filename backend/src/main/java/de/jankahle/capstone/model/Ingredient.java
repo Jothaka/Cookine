@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Ingredient {
     private String name;
-    private int amount;
+    private String amount;
     private String measurementUnit;
 }
