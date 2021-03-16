@@ -47,8 +47,8 @@ class RecipeControllerTest {
     void saveRecipe() {
         //GIVEN
         List<Ingredient> ingredients = List.of(
-                Ingredient.builder().name("Kartoffel").amount(800).measurementUnit("gram").build(),
-                Ingredient.builder().name("Salz").amount(1).measurementUnit("Prise").build()
+                Ingredient.builder().name("Kartoffel").amount("800").measurementUnit("Gramm").build(),
+                Ingredient.builder().name("Salz").amount("1").measurementUnit("Prise").build()
         );
 
         RecipeDto recipeDto =

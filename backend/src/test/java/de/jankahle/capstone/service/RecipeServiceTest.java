@@ -11,8 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class RecipeServiceTest {
 
@@ -24,8 +23,8 @@ class RecipeServiceTest {
     void saveRecipe() {
         //Given
         List<Ingredient> ingredients = List.of(
-                Ingredient.builder().name("Kartoffel").amount(800).measurementUnit("Gramm").build(),
-                Ingredient.builder().name("Salz").amount(1).measurementUnit("Prise").build()
+                Ingredient.builder().name("Kartoffel").amount("800").measurementUnit("Gramm").build(),
+                Ingredient.builder().name("Salz").amount("1").measurementUnit("Prise").build()
         );
 
         RecipeDto recipeDto =
@@ -39,8 +38,8 @@ class RecipeServiceTest {
 
         //Then
         List<Ingredient> expectedIngredients = List.of(
-                Ingredient.builder().name("Kartoffel").amount(800).measurementUnit("Gramm").build(),
-                Ingredient.builder().name("Salz").amount(1).measurementUnit("Prise").build()
+                Ingredient.builder().name("Kartoffel").amount("800").measurementUnit("Gramm").build(),
+                Ingredient.builder().name("Salz").amount("1").measurementUnit("Prise").build()
         );
         Recipe expected = Recipe.builder()
                 .name("Salzkartoffeln")
@@ -48,5 +47,6 @@ class RecipeServiceTest {
                 .build();
 
         assertThat(actual, Matchers.is(expected));
+        verify(recipeMongoDB).save(expected.toDBRecipe());
     }
 }

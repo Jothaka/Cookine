@@ -12,6 +12,7 @@ import java.util.List;
 @Builder
 @Document(collection = "recipes")
 public class DBRecipe {
+    @EqualsAndHashCode.Exclude
     @Id
     private String id;
     private String name;
