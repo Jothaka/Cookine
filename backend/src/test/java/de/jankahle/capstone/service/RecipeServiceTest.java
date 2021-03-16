@@ -32,7 +32,7 @@ class RecipeServiceTest {
                         .build();
 
         //When
-        Recipe actual = recipeService.saveRecipeToDB(recipeDto);
+        Recipe actual = recipeService.saveRecipe(recipeDto);
 
         //Then
         List<Ingredient> expectedIngredients = createSaltedPotatoesIngredients();
@@ -61,8 +61,8 @@ class RecipeServiceTest {
                         .ingredients(createPastaIngredients())
                         .build();
 
-        recipeService.saveRecipeToDB(firstRecipeDto);
-        recipeService.saveRecipeToDB(secondRecipeDto);
+        recipeService.saveRecipe(firstRecipeDto);
+        recipeService.saveRecipe(secondRecipeDto);
 
         DBRecipe firstDBRecipe =
                 DBRecipe.builder()
@@ -79,7 +79,7 @@ class RecipeServiceTest {
         when(recipeMongoDB.findAll()).thenReturn(List.of(firstDBRecipe, secondDBRecipe));
 
         //When
-        List<Recipe> actualList = recipeService.loadRecipesFromDB();
+        List<Recipe> actualList = recipeService.loadRecipes();
 
         //Then
         Recipe firstExpectedRecipe = Recipe.builder()

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RecipeService {
@@ -21,21 +22,17 @@ public class RecipeService {
         this.recipeMongoDB = recipeMongoDB;
     }
 
-    public Recipe saveRecipeToDB(RecipeDto recipeDto){
-
+    public Recipe saveRecipe(RecipeDto recipeDto) {
         Recipe recipe = recipeDto.toRecipe();
         recipe.setId(IdUtility.generateId());
         recipeMongoDB.save(recipe.toDBRecipe());
 
-        return  recipe;
+        return recipe;
     }
 
-    public List<Recipe> loadRecipesFromDB() {
+    public List<Recipe> loadRecipes() {
         List<DBRecipe> dbRecipes = recipeMongoDB.findAll();
-        List<Recipe> result = new ArrayList<>();
-        for (DBRecipe dbRecipe : dbRecipes) {
-            result.add(dbRecipe.toRecipe());
-        }
-        return result;
+
+        return dbRecipes.stream().map(DBRecipe::toRecipe).collect(Collectors.toList());
     }
 }

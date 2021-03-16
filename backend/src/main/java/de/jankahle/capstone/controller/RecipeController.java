@@ -22,11 +22,11 @@ public class RecipeController {
 
     @PostMapping
     public Recipe saveRecipe(@RequestBody RecipeDto recipeDto) {
-        return recipeService.saveRecipeToDB(recipeDto);
+        return recipeService.saveRecipe(recipeDto);
     }
 
     @GetMapping
     public List<Recipe> loadRecipes() {
-        return recipeService.loadRecipesFromDB();
+        return recipeService.loadRecipes();
     }
 }
