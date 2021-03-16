@@ -1,11 +1,15 @@
 package de.jankahle.capstone.service;
 
 import de.jankahle.capstone.db.RecipeMongoDB;
+import de.jankahle.capstone.model.DBRecipe;
 import de.jankahle.capstone.model.Recipe;
 import de.jankahle.capstone.model.RecipeDto;
 import de.jankahle.capstone.utility.IdUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RecipeService {
@@ -24,5 +28,14 @@ public class RecipeService {
         recipeMongoDB.save(recipe.toDBRecipe());
 
         return  recipe;
+    }
+
+    public List<Recipe> loadRecipesFromDB() {
+        List<DBRecipe> dbRecipes = recipeMongoDB.findAll();
+        List<Recipe> result = new ArrayList<>();
+        for (DBRecipe dbRecipe : dbRecipes) {
+            result.add(dbRecipe.toRecipe());
+        }
+        return result;
     }
 }
