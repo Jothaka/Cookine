@@ -1,7 +1,7 @@
 import {fileUpload} from "../services/fileUploadService";
 import {useState} from "react";
 
-export function FileUpload() {
+export default function FileUpload() {
 
     const [file, setFile] = useState(undefined);
 

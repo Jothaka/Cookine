@@ -1,20 +1,17 @@
 package de.jankahle.capstone.utility;
 
+import java.util.List;
+
 public class ImageUtility {
-    private static final String[] validTypes = {
+    private static final List<String> validTypes = List.of(
             "image/gif",
             "image/png",
             "image/jpg",
             "image/jpeg",
-            "image/pjpeg"};
+            "image/pjpeg"
+    );
 
     public static boolean IsContentTypeValid(String contentType) {
-        if (contentType.isEmpty())
-            return false;
-        for (String validType : validTypes) {
-            if (contentType.equals(validType))
-                return true;
-        }
-        return false;
+        return !contentType.isEmpty() && validTypes.contains(validTypes);
     }
 }
