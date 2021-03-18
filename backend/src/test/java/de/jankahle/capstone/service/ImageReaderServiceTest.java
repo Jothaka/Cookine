@@ -1,16 +1,16 @@
 package de.jankahle.capstone.service;
 
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 
 import java.io.File;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ImageReaderServiceTest {
 
+    @DisplayName("The reading of the example.png should provide the correct String")
     @Test
     void getTextFromImage() {
         //Given
