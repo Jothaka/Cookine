@@ -12,6 +12,6 @@ public class ImageUtility {
     );
 
     public static boolean IsContentTypeValid(String contentType) {
-        return !contentType.isEmpty() && validTypes.contains(validTypes);
+        return !contentType.isEmpty() && validTypes.contains(contentType);
     }
 }
