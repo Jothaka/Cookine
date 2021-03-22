@@ -43,7 +43,7 @@ public class RecipeTextFilterService {
 
     /*
         <Filter Description>
-        \\d+ we expect an listing of an ingredient starts with a number/the amount of the ingredient this can go in double or triple digits.
+        \\d+ we expect an listing of an ingredient starts with a number/the amount of the ingredient this can have multiple digits.
         [\/.,]?\\d? the amount may be partial so we need to consider things like 1/2 or 1.5, this is optional.
         \\s? depending on the recipe there might be a space between the amount and the measurementUnit or not ("1 kg" or "1kg")
         [a-zA-Z]* if a measurementUnit is provided it will always be in letters, this is optional as sometimes the measurementUnit is in the ingredients name ("Knoblauchzehe")

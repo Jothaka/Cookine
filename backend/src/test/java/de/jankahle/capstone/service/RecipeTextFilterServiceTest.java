@@ -50,7 +50,7 @@ class RecipeTextFilterServiceTest {
 //TODO: write Recipe test
     }
 
-    @DisplayName("Test Test")
+    @DisplayName("A provided String should return a valid ingredient if there is one included")
     @ParameterizedTest
     @MethodSource
     void parseIngredientTest(String input, Optional<Ingredient> expected) {
