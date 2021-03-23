@@ -56,13 +56,16 @@ class RecipeTextFilterServiceTest {
         Recipe actual = recipeTextFilterService.parseStringToRecipe(testRecipeString);
 
         //Then
+        Recipe expected = Recipe.builder()
+                .ingredients(getTestRecipeIngredients())
+                .name("")
+                .build();
 
-
+        assertThat(actual, Matchers.is(expected));
     }
 
     private List<Ingredient> getTestRecipeIngredients() {
-
-        List<Ingredient> testIngredients = List.of(
+        return List.of(
                 Ingredient.builder()
                         .name("Kartoffeln, mehligkochend")
                         .amount("1")
@@ -104,7 +107,6 @@ class RecipeTextFilterServiceTest {
                         .measurementUnit("Prisen")
                         .build()
         );
-        return List.of();
     }
 
     @DisplayName("A provided String should return a valid ingredient if there is one included")
