@@ -1,6 +1,7 @@
 package de.jankahle.capstone.service;
 
 import de.jankahle.capstone.model.Ingredient;
+import de.jankahle.capstone.model.Recipe;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -15,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 class RecipeTextFilterServiceTest {
 
-    private  String testRecipeString = "a WÜURZIGES KARTOFFELGRATIN\n" +
+    private String testRecipeString = "a WÜURZIGES KARTOFFELGRATIN\n" +
             "4 ' ZUTATEN\n" +
             "a — .\n" +
             "> BD utspin © 4 ©\n" +
@@ -47,7 +49,64 @@ class RecipeTextFilterServiceTest {
 
     @Test
     void parseStringToRecipeTest() {
-//TODO: write Recipe test
+        //Given
+        RecipeTextFilterService recipeTextFilterService = new RecipeTextFilterService();
+
+        //When
+        Recipe actual = recipeTextFilterService.parseStringToRecipe(testRecipeString);
+
+        //Then
+        Recipe expected = Recipe.builder()
+                .ingredients(getTestRecipeIngredients())
+                .name("")
+                .build();
+
+        assertThat(actual, Matchers.is(expected));
+    }
+
+    private List<Ingredient> getTestRecipeIngredients() {
+        return List.of(
+                Ingredient.builder()
+                        .name("Kartoffeln, mehligkochend")
+                        .amount("1")
+                        .measurementUnit("kg")
+                        .build(),
+                Ingredient.builder()
+                        .name("Knoblauchzehe")
+                        .amount("1")
+                        .measurementUnit("")
+                        .build(),
+                Ingredient.builder()
+                        .name("Schlagsahne")
+                        .amount("400")
+                        .measurementUnit("ml")
+                        .build(),
+                Ingredient.builder()
+                        .name("Parmesan, gerieben")
+                        .amount("100")
+                        .measurementUnit("g")
+                        .build(),
+                Ingredient.builder()
+                        .name("Butter")
+                        .amount("50")
+                        .measurementUnit("g")
+                        .build(),
+                Ingredient.builder()
+                        .name("Petersilie")
+                        .amount("1/2")
+                        .measurementUnit("Bund")
+                        .build(),
+                Ingredient.builder()
+                        .name("JS Kartoffel Allrounder")
+                        .amount("10")
+                        .measurementUnit("Pr.")
+                        .build(),
+                Ingredient.builder()
+                        .name("Salz")
+                        .amount("3")
+                        .measurementUnit("Prisen")
+                        .build()
+        );
     }
 
     @DisplayName("A provided String should return a valid ingredient if there is one included")
@@ -62,13 +121,13 @@ class RecipeTextFilterServiceTest {
 
         //Then
         assertThat(actual.isEmpty(), Matchers.is(expected.isEmpty()));
-        if(actual.isPresent() && expected.isPresent()) {
+        if (actual.isPresent() && expected.isPresent()) {
             assertThat(actual.get(), Matchers.is(expected.get()));
         }
     }
 
     static Stream<Arguments> parseIngredientTest() {
-        String input1 =  "z a 1kg Kartoffeln, mehligkochend";
+        String input1 = "z a 1kg Kartoffeln, mehligkochend";
         Ingredient expected1 = Ingredient.builder()
                 .name("Kartoffeln, mehligkochend")
                 .amount("1")
@@ -105,13 +164,18 @@ class RecipeTextFilterServiceTest {
                 .measurementUnit("Pr.")
                 .build();
 
+        String input7 = "0 Den Gratin ca. 50 Minuten im Ofen garen, bis es leicht gebräunt ist. Die Petersilie waschen,";
+        String input8 = "Sn ill a m ir ie ie ir 8 (66) Rezept bewerten Personen";
+
         return Stream.of(
                 Arguments.arguments(input1, Optional.of(expected1)),
                 Arguments.arguments(input2, Optional.of(expected2)),
                 Arguments.arguments(input3, Optional.empty()),
                 Arguments.arguments(input4, Optional.of(expected4)),
                 Arguments.arguments(input5, Optional.of(expected5)),
-                Arguments.arguments(input6, Optional.of(expected6))
+                Arguments.arguments(input6, Optional.of(expected6)),
+                Arguments.arguments(input7, Optional.empty()),
+                Arguments.arguments(input8, Optional.empty())
         );
     }
 }

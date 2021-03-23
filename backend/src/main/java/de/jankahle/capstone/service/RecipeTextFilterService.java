@@ -4,9 +4,11 @@ import de.jankahle.capstone.model.Ingredient;
 import de.jankahle.capstone.model.Recipe;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.*;
 
+import de.jankahle.capstone.utility.IdUtility;
 import org.springframework.stereotype.Service;
 
 
@@ -14,7 +16,20 @@ import org.springframework.stereotype.Service;
 public class RecipeTextFilterService {
 
     public Recipe parseStringToRecipe(String recipeString) {
-        return Recipe.builder().build();
+
+        List<Ingredient> ingredients = new ArrayList<>();
+
+        String[] recipeLines = recipeString.split("\n");
+        for (String recipeLine : recipeLines) {
+            Optional<Ingredient> parsedIngredient = parseIngredient(recipeLine);
+            parsedIngredient.ifPresent(ingredients::add);
+        }
+
+        return Recipe.builder()
+                .id(IdUtility.generateId())
+                .name("")
+                .ingredients(ingredients)
+                .build();
     }
 
     Optional<Ingredient> parseIngredient(String recipeLine) {
@@ -52,7 +67,7 @@ public class RecipeTextFilterService {
         </Filter Description>
     */
     private ArrayList<String> filterLineForIngredientDetails(String recipeLine) {
-        String filter = "(\\d+[\\/.,]?\\d?\\s?[a-zA-Z]*\\s[A-Z][a-z]+([,.]\\s[a-zA-Z ]+)?)";
+        String filter = "(\\d+[\\/.,-]?\\d?\\s?[a-zA-Z]*\\s[A-Z][a-z]+([,.(]\\s[a-zA-Z ()]+)?)";
         Pattern pattern = Pattern.compile(filter);
         Matcher matcher = pattern.matcher(recipeLine);
         ArrayList<String> matcherResults = new ArrayList<>();
@@ -60,6 +75,11 @@ public class RecipeTextFilterService {
         while (matcher.find()) {
             matcherResults.add(matcher.group());
         }
+
+        //there should only be one ingredient per line
+        if (matcherResults.size() > 1)
+            matcherResults.clear();
+
         return matcherResults;
     }
 
@@ -75,10 +95,6 @@ public class RecipeTextFilterService {
 
     private String normalizeMatcherResults(ArrayList<String> matcherResults) {
         StringBuilder matcherResult = new StringBuilder(matcherResults.get(0));
-        if (matcherResults.size() > 1) {
-            matcherResult.append(matcherResults.get(1));
-        }
-
         insertMissingSplitSeperators(matcherResult);
         return matcherResult.toString();
     }
