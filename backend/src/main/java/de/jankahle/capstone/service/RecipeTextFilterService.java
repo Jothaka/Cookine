@@ -52,7 +52,7 @@ public class RecipeTextFilterService {
         </Filter Description>
     */
     private ArrayList<String> filterLineForIngredientDetails(String recipeLine) {
-        String filter = "(\\d+[\\/.,]?\\d?\\s?[a-zA-Z]*\\s[A-Z][a-z]+([,.]\\s[a-zA-Z ]+)?)";
+        String filter = "(\\d+[\\/.,-]?\\d?\\s?[a-zA-Z]*\\s[A-Z][a-z]+([,.(]\\s[a-zA-Z ()]+)?)";
         Pattern pattern = Pattern.compile(filter);
         Matcher matcher = pattern.matcher(recipeLine);
         ArrayList<String> matcherResults = new ArrayList<>();
@@ -60,6 +60,11 @@ public class RecipeTextFilterService {
         while (matcher.find()) {
             matcherResults.add(matcher.group());
         }
+
+        //there should only be one ingredient per line
+        if (matcherResults.size() > 1)
+            matcherResults.clear();
+
         return matcherResults;
     }
 
@@ -75,10 +80,6 @@ public class RecipeTextFilterService {
 
     private String normalizeMatcherResults(ArrayList<String> matcherResults) {
         StringBuilder matcherResult = new StringBuilder(matcherResults.get(0));
-        if (matcherResults.size() > 1) {
-            matcherResult.append(matcherResults.get(1));
-        }
-
         insertMissingSplitSeperators(matcherResult);
         return matcherResult.toString();
     }
