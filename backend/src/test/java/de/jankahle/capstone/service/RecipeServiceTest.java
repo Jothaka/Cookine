@@ -17,7 +17,9 @@ import static org.mockito.Mockito.*;
 class RecipeServiceTest {
 
     private final RecipeMongoDB recipeMongoDB = mock(RecipeMongoDB.class);
-    private final RecipeService recipeService = new RecipeService(recipeMongoDB);
+    private  final ImageReaderService readerService = mock(ImageReaderService.class);
+    private  final  RecipeTextFilterService filterService = mock(RecipeTextFilterService.class);
+    private final RecipeService recipeService = new RecipeService(recipeMongoDB, readerService, filterService);
 
     @Test
     @DisplayName("Save recipe to DB should return a Recipe equivalent of the RecipeDto")

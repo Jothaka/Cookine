@@ -1,7 +1,7 @@
 package de.jankahle.capstone.controller;
 
-import de.jankahle.capstone.service.ImageReaderService;
-import de.jankahle.capstone.utility.FileUtility;
+import de.jankahle.capstone.model.Recipe;
+import de.jankahle.capstone.service.RecipeService;
 import de.jankahle.capstone.utility.ImageUtility;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,38 +13,27 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.File;
-import java.io.IOException;
-
 
 @RestController
 @RequestMapping("api/upload")
 public class FileUploadController {
 
-    private final ImageReaderService imageReaderService;
+    private  final RecipeService recipeService;
 
     @Autowired
-    public FileUploadController(ImageReaderService imageReaderService) {
-        this.imageReaderService = imageReaderService;
+    public FileUploadController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @PostMapping
-    public String handleFileUpload(@RequestParam("file") MultipartFile file) {
-        String result = "Wrong filetype";
-
+    public Recipe parseFileToRecipe(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "File is empty");
         }
-
-        if (ImageUtility.IsContentTypeValid(file.getContentType())) {
-            try {
-                File temporaryFile = FileUtility.convertMultipartFileToFile(file);
-                result = imageReaderService.getTextFromImage(temporaryFile);
-                temporaryFile.delete();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if(!ImageUtility.isContentTypeValid(file.getContentType())) {
+            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST, "File is not an imagefile");
         }
-        return result;
+
+        return recipeService.generateRecipe(file);
     }
 }
