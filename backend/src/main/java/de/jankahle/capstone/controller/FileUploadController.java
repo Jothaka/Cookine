@@ -30,7 +30,7 @@ public class FileUploadController {
         if (file.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "File is empty");
         }
-        if(!ImageUtility.IsContentTypeValid(file.getContentType())) {
+        if(!ImageUtility.isContentTypeValid(file.getContentType())) {
             throw  new ResponseStatusException(HttpStatus.BAD_REQUEST, "File is not an imagefile");
         }
 
