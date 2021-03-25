@@ -11,7 +11,7 @@ public class ImageUtility {
             "image/pjpeg"
     );
 
-    public static boolean IsContentTypeValid(String contentType) {
+    public static boolean isContentTypeValid(String contentType) {
         return !contentType.isEmpty() && validTypes.contains(contentType);
     }
 }
