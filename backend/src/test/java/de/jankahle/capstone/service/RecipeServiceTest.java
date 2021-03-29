@@ -1,10 +1,8 @@
 package de.jankahle.capstone.service;
 
+import de.jankahle.capstone.TestFactory;
 import de.jankahle.capstone.db.RecipeMongoDB;
-import de.jankahle.capstone.model.DBRecipe;
-import de.jankahle.capstone.model.Ingredient;
 import de.jankahle.capstone.model.Recipe;
-import de.jankahle.capstone.model.RecipeDto;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,24 +22,11 @@ class RecipeServiceTest {
     @Test
     @DisplayName("Save recipe to DB should return a Recipe equivalent of the RecipeDto")
     void saveRecipe() {
-        //Given
-        List<Ingredient> ingredients = createSaltedPotatoesIngredients();
-
-        RecipeDto recipeDto =
-                RecipeDto.builder()
-                        .name("Salzkartoffeln")
-                        .ingredients(ingredients)
-                        .build();
-
         //When
-        Recipe actual = recipeService.saveRecipe(recipeDto);
+        Recipe actual = recipeService.saveRecipe(TestFactory.createPotatoDto());
 
         //Then
-        List<Ingredient> expectedIngredients = createSaltedPotatoesIngredients();
-        Recipe expected = Recipe.builder()
-                .name("Salzkartoffeln")
-                .ingredients(expectedIngredients)
-                .build();
+        Recipe expected = TestFactory.createPotatoRecipe();
 
         assertThat(actual, Matchers.is(expected));
         verify(recipeMongoDB).save(expected.toDBRecipe());
@@ -51,65 +36,21 @@ class RecipeServiceTest {
     @DisplayName("Load recipes from DB should return a List of Recipes equivalent to the saved ones")
     void loadRecipesFromDB() {
         //Given
-        RecipeDto firstRecipeDto =
-                RecipeDto.builder()
-                        .name("Salzkartoffeln")
-                        .ingredients(createSaltedPotatoesIngredients())
-                        .build();
+        recipeService.saveRecipe(TestFactory.createPotatoDto());
+        recipeService.saveRecipe(TestFactory.createPastaDto());
 
-        RecipeDto secondRecipeDto =
-                RecipeDto.builder()
-                        .name("Pasta")
-                        .ingredients(createPastaIngredients())
-                        .build();
-
-        recipeService.saveRecipe(firstRecipeDto);
-        recipeService.saveRecipe(secondRecipeDto);
-
-        DBRecipe firstDBRecipe =
-                DBRecipe.builder()
-                        .name("Salzkartoffeln")
-                        .ingredients(createSaltedPotatoesIngredients())
-                        .build();
-
-        DBRecipe secondDBRecipe =
-                DBRecipe.builder()
-                        .name("Pasta")
-                        .ingredients(createPastaIngredients())
-                        .build();
-
-        when(recipeMongoDB.findAll()).thenReturn(List.of(firstDBRecipe, secondDBRecipe));
+        when(recipeMongoDB.findAll()).thenReturn(List.of(
+                TestFactory.createPotatoDBRecipe(),
+                TestFactory.createPastaDBRecipe()));
 
         //When
         List<Recipe> actualList = recipeService.loadRecipes();
 
         //Then
-        Recipe firstExpectedRecipe = Recipe.builder()
-                .name("Salzkartoffeln")
-                .ingredients(createSaltedPotatoesIngredients())
-                .build();
+        assertThat(actualList, Matchers.containsInAnyOrder(
+                TestFactory.createPotatoRecipe(),
+                TestFactory.createPastaRecipe()));
 
-        Recipe secondExpectedRecipe =
-                Recipe.builder()
-                        .name("Pasta")
-                        .ingredients(createPastaIngredients())
-                        .build();
-
-        assertThat(actualList, Matchers.containsInAnyOrder(firstExpectedRecipe, secondExpectedRecipe));
-    }
-
-    private List<Ingredient> createPastaIngredients() {
-        return List.of(
-                Ingredient.builder().name("Nudeln").amount("100").measurementUnit("Gramm").build(),
-                Ingredient.builder().name("Wasser").amount("1").measurementUnit("Liter").build(),
-                Ingredient.builder().name("Salz").amount("7").measurementUnit("Gramm").build()
-        );
-    }
-
-    private List<Ingredient> createSaltedPotatoesIngredients() {
-        return List.of(
-                Ingredient.builder().name("Kartoffel").amount("800").measurementUnit("Gramm").build(),
-                Ingredient.builder().name("Salz").amount("1").measurementUnit("Prise").build()
-        );
+        verify(recipeMongoDB).findAll();
     }
 }

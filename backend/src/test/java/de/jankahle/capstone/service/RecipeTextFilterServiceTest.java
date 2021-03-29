@@ -47,6 +47,7 @@ class RecipeTextFilterServiceTest {
             "0 Den Gratin ca. 50 Minuten im Ofen garen, bis es leicht gebräunt ist. Die Petersilie waschen,\n" +
             "trocken tupfen und fein schneiden. Den Kartoffelgratin mit der Petersilie bestreut servieren.\n";
 
+    @DisplayName("A provided recipe string should properly extract all Ingredients an create a Recipe")
     @Test
     void parseStringToRecipeTest() {
         //Given
