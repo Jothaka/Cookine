@@ -1,14 +1,17 @@
 import {fileUpload} from "../services/fileUploadService";
 import {useState} from "react";
+import {useHistory} from "react-router-dom";
 
-export default function FileUpload() {
+export default function FileUpload({onDraftReceived}) {
 
     const [file, setFile] = useState(undefined);
+    const history =  useHistory();
 
     const onFormSubmit = (formEvent) => {
         formEvent.preventDefault();
         fileUpload(file).then((response) => {
-            console.log(response.data)
+            onDraftReceived(response);
+            history.push("/draft");
         })
     }
 
