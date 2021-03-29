@@ -1,9 +1,9 @@
 package de.jankahle.capstone.controller;
 
 import de.jankahle.capstone.db.RecipeMongoDB;
-import de.jankahle.capstone.model.Ingredient;
 import de.jankahle.capstone.model.Recipe;
 import de.jankahle.capstone.model.RecipeDto;
+import de.jankahle.capstone.TestFactory;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,8 +15,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,31 +43,13 @@ class RecipeControllerTest {
     @Test
     @DisplayName("Saving a new Recipe adds the Recipe to the DB")
     void saveRecipe() {
-        //GIVEN
-        List<Ingredient> ingredients = List.of(
-                Ingredient.builder().name("Kartoffel").amount("800").measurementUnit("Gramm").build(),
-                Ingredient.builder().name("Salz").amount("1").measurementUnit("Prise").build()
-        );
-
-        RecipeDto recipeDto =
-                RecipeDto.builder()
-                        .name("Salzkartoffeln")
-                        .ingredients(ingredients)
-                        .build();
-
         //WHEN
-        HttpEntity<RecipeDto> postEntity = new HttpEntity<>(recipeDto);
+        HttpEntity<RecipeDto> postEntity = new HttpEntity<>(TestFactory.createPotatoDto());
         ResponseEntity<Recipe> actualResponse = testRestTemplate.postForEntity(getUrl(),postEntity,Recipe.class);
 
-
         //THEN
-        Recipe expected = Recipe.builder()
-                .name("Salzkartoffeln")
-                .ingredients(ingredients)
-                .build();
-
         assertThat(actualResponse.getStatusCode(), Matchers.is(HttpStatus.OK));
-        assertThat(actualResponse.getBody(), Matchers.is(expected));
+        assertThat(actualResponse.getBody(), Matchers.is(TestFactory.createPotatoRecipe()));
         assertTrue(recipeMongoDB.existsById(actualResponse.getBody().getId()));
     }
 }
