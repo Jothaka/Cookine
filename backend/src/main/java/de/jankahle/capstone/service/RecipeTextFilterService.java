@@ -22,6 +22,7 @@ public class RecipeTextFilterService {
         String[] recipeLines = recipeString.split("\n");
         for (String recipeLine : recipeLines) {
             Optional<Ingredient> parsedIngredient = parseIngredient(recipeLine);
+            parsedIngredient.ifPresent(ingredient -> ingredient.setId(IdUtility.generateId()));
             parsedIngredient.ifPresent(ingredients::add);
         }
 
