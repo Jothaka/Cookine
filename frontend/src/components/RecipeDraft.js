@@ -6,33 +6,30 @@ export default function RecipeDraft({recipe, onRecipeUpdated}) {
     const [ingredients, setIngredients] = useState(recipe.ingredients);
     const classes = useStyles();
 
-    const onNameChange = (changeEvent) => {
+    const onNameChanged = (changeEvent) => {
         recipe.name = changeEvent.value;
         onRecipeUpdated(recipe);
     }
 
-    const onIngredientChange = (updatedIngredient) => {
+    const onIngredientUpdated = (updatedIngredient) => {
         setIngredients(ingredients.map(ingredient =>
             ingredient.id === updatedIngredient.id ? updatedIngredient : ingredient))
-        recipe.ingredients =ingredients
+        recipe.ingredients = ingredients
         onRecipeUpdated(recipe)
     }
 
     return (
         <>
             <form className={classes.root}>
-                <div>
-                    <TextField
-                        required id="recipename"
-                        label = "Rezeptname"
-                        value={recipe.name}
-                        onChange={onNameChange}
-                    />
-                </div>
+                <TextField
+                    required id="recipename"
+                    label="Rezeptname"
+                    value={recipe.name}
+                    onChange={onNameChanged}
+                />
                 {ingredients.map(ingredient => (
-                    <IngredientEditor key={ingredient.id} ingredient={ingredient} onChange={onIngredientChange}/>
+                    <IngredientEditor key={ingredient.id} ingredient={ingredient} onChange={onIngredientUpdated}/>
                 ))}
-
             </form>
         </>
     )
@@ -42,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
-
         },
     }
 }));

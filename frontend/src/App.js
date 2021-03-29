@@ -21,17 +21,15 @@ function App() {
     }
 
     return (
-        <div>
-            <Switch>
-                <Route exact path="/">
-                    <RecipeList recipes={recipes}/>
-                    <FileUpload onDraftReceived={onDraftUpdated}/>
-                </Route>
-                <Route path="/draft">
-                    { draft !== '' && <RecipeDraft recipe={draft} onRecipeUpdated={onDraftUpdated} /> }
-                </Route>
-            </Switch>
-        </div>
+        <Switch>
+            <Route exact path="/">
+                <RecipeList recipes={recipes}/>
+                <FileUpload onDraftReceived={onDraftUpdated}/>
+            </Route>
+            <Route path="/draft">
+                {draft && <RecipeDraft recipe={draft} onRecipeUpdated={onDraftUpdated}/>}
+            </Route>
+        </Switch>
     );
 }
 

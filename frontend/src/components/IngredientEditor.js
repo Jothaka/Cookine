@@ -7,7 +7,7 @@ export default function IngredientEditor({ingredient}) {
     const classes = useStyles();
 
 
-    const onNameChange = nameChangedEvent => {
+    const onDataChanged = nameChangedEvent => {
         setIngredientData(ingredientData => ({
                 ...ingredientData,
                 [nameChangedEvent.target.id]: nameChangedEvent.target.value,
@@ -21,7 +21,7 @@ export default function IngredientEditor({ingredient}) {
                 label="Menge"
                 id="amount"
                 value={ingredientData.amount}
-                onChange={onNameChange}
+                onChange={onDataChanged}
                 inputProps={{'aria-label': 'Menge'}}
                 className={classes.unit}
             />
@@ -29,7 +29,7 @@ export default function IngredientEditor({ingredient}) {
                 label='Einheit'
                 id="measurementUnit"
                 value={ingredientData.measurementUnit}
-                onChange={onNameChange}
+                onChange={onDataChanged}
                 inputProps={{'aria-label': 'Einheit'}}
                 className={classes.unit}
             />
@@ -37,7 +37,7 @@ export default function IngredientEditor({ingredient}) {
                 label="Name"
                 id="name"
                 value={ingredientData.name}
-                onChange={onNameChange}
+                onChange={onDataChanged}
                 inputProps={{'aria-label': 'Name',}}
                 className={classes.title}
             />
