@@ -1,15 +1,14 @@
 package de.jankahle.capstone.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Ingredient {
+    @EqualsAndHashCode.Exclude
+    private String id;
     private String name;
     private String amount;
     private String measurementUnit;
