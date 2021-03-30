@@ -18,6 +18,7 @@ public class TestFactory {
 
     public static RecipeDto createPotatoDto() {
         return RecipeDto.builder()
+                .id("")
                 .name("Salzkartoffeln")
                 .ingredients(createPotatoIngredientsList())
                 .build();
@@ -53,6 +54,7 @@ public class TestFactory {
 
     public static RecipeDto createPastaDto() {
         return RecipeDto.builder()
+                .id("")
                 .name("Pasta")
                 .ingredients(createPastaIngredients())
                 .build();

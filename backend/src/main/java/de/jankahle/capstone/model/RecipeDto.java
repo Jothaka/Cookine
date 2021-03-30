@@ -1,9 +1,6 @@
 package de.jankahle.capstone.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -12,6 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class RecipeDto {
+    @EqualsAndHashCode.Exclude
     private String id;
     private String name;
     private List<Ingredient> ingredients;
