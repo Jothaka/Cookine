@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 public class RecipeService {
 
     private final RecipeMongoDB recipeMongoDB;
-    private  final ImageReaderService imageReaderService;
-    private  final  RecipeTextFilterService textFilterService;
+    private final ImageReaderService imageReaderService;
+    private final RecipeTextFilterService textFilterService;
 
     @Autowired
     public RecipeService(RecipeMongoDB recipeMongoDB, ImageReaderService imageReaderService, RecipeTextFilterService textFilterService) {
@@ -31,7 +31,9 @@ public class RecipeService {
 
     public Recipe saveRecipe(RecipeDto recipeDto) {
         Recipe recipe = recipeDto.toRecipe();
-        recipe.setId(IdUtility.generateId());
+        if (recipe.getId().isEmpty()) {
+            recipe.setId(IdUtility.generateId());
+        }
         recipeMongoDB.save(recipe.toDBRecipe());
 
         return recipe;
@@ -56,6 +58,6 @@ public class RecipeService {
             e.printStackTrace();
         }
 
-        return  Recipe.builder().build();
+        return Recipe.builder().build();
     }
 }
