@@ -1,35 +1,31 @@
-import {makeStyles, TextField} from "@material-ui/core";
+import {Button, makeStyles, TextField} from "@material-ui/core";
 import {useState} from "react";
 import IngredientEditor from "./IngredientEditor";
 
-export default function RecipeDraft({recipe, onRecipeUpdated}) {
+export default function RecipeDraft({recipe, onRecipeNameUpdated, onIngredientsUpdated,  saveDraft}) {
     const [ingredients, setIngredients] = useState(recipe.ingredients);
-    const classes = useStyles();
 
-    const onNameChanged = (changeEvent) => {
-        recipe.name = changeEvent.value;
-        onRecipeUpdated(recipe);
-    }
+    const classes = useStyles();
 
     const onIngredientUpdated = (updatedIngredient) => {
         setIngredients(ingredients.map(ingredient =>
             ingredient.id === updatedIngredient.id ? updatedIngredient : ingredient))
-        recipe.ingredients = ingredients
-        onRecipeUpdated(recipe)
+        onIngredientsUpdated(ingredients)
     }
 
     return (
         <>
-            <form className={classes.root}>
+            <form className={classes.root} onSubmit={saveDraft}>
                 <TextField
                     required id="recipename"
                     label="Rezeptname"
                     value={recipe.name}
-                    onChange={onNameChanged}
+                    onChange={onRecipeNameUpdated}
                 />
                 {ingredients.map(ingredient => (
                     <IngredientEditor key={ingredient.id} ingredient={ingredient} onChange={onIngredientUpdated}/>
                 ))}
+                <Button type="submit" >Speichern</Button>
             </form>
         </>
     )
