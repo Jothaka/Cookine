@@ -3,7 +3,7 @@ import {Card, CardContent, Typography} from "@material-ui/core";
 
 export default function Recipe({recipe}) {
     return (
-        <ListItem key={recipe.id}>
+        <ListItem >
             <Card style={cardStyle}>
                 <CardContent>
                     <CardContentOrder>

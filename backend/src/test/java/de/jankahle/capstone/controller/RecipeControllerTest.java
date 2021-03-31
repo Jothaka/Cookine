@@ -1,6 +1,6 @@
 package de.jankahle.capstone.controller;
 
-import de.jankahle.capstone.db.RecipeMongoDB;
+import de.jankahle.capstone.db.RecipeDB;
 import de.jankahle.capstone.model.Recipe;
 import de.jankahle.capstone.model.RecipeDto;
 import de.jankahle.capstone.TestFactory;
@@ -33,11 +33,11 @@ class RecipeControllerTest {
     private TestRestTemplate testRestTemplate;
 
     @Autowired
-    private RecipeMongoDB recipeMongoDB;
+    private RecipeDB recipeDB;
 
     @BeforeEach
     public  void setup() {
-        recipeMongoDB.deleteAll();
+        recipeDB.deleteAll();
     }
 
     @Test
@@ -50,6 +50,6 @@ class RecipeControllerTest {
         //THEN
         assertThat(actualResponse.getStatusCode(), Matchers.is(HttpStatus.OK));
         assertThat(actualResponse.getBody(), Matchers.is(TestFactory.createPotatoRecipe()));
-        assertTrue(recipeMongoDB.existsById(actualResponse.getBody().getId()));
+        assertTrue(recipeDB.existsById(actualResponse.getBody().getId()));
     }
 }

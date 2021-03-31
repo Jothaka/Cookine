@@ -4,10 +4,14 @@ import {useEffect, useState} from "react";
 import {getAllRecipes} from "./services/recipeApiService";
 import {Route, Switch} from 'react-router-dom';
 import RecipeDraft from "./components/RecipeDraft";
+import useDraftHooks from "./hooks/DraftHooks";
 
 function App() {
     const [recipes, setRecipes] = useState([]);
-    const [draft, setDraft] = useState('');
+    const [onDraftReceived,
+        onDraftNameUpdated,
+        onDraftIngredientsUpdated,
+        saveDraft, draft] = useDraftHooks(setRecipes, recipes);
 
     useEffect(() => {
             getAllRecipes()
@@ -16,18 +20,18 @@ function App() {
         },
         [])
 
-    const onDraftUpdated = (updatedDraft) => {
-        setDraft(updatedDraft);
-    }
-
     return (
         <Switch>
             <Route exact path="/">
                 <RecipeList recipes={recipes}/>
-                <FileUpload onDraftReceived={onDraftUpdated}/>
+                <FileUpload onDraftReceived={onDraftReceived}/>
             </Route>
             <Route path="/draft">
-                {draft && <RecipeDraft recipe={draft} onRecipeUpdated={onDraftUpdated}/>}
+                {draft && <RecipeDraft
+                    recipe={draft}
+                    onRecipeNameUpdated={onDraftNameUpdated}
+                    onIngredientsUpdated={onDraftIngredientsUpdated}
+                    saveDraft={saveDraft}/>}
             </Route>
         </Switch>
     );

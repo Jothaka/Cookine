@@ -1,7 +1,7 @@
 package de.jankahle.capstone.service;
 
-import de.jankahle.capstone.db.RecipeMongoDB;
-import de.jankahle.capstone.model.DBRecipe;
+import de.jankahle.capstone.db.RecipeDB;
+import de.jankahle.capstone.model.RecipeDao;
 import de.jankahle.capstone.model.Recipe;
 import de.jankahle.capstone.model.RecipeDto;
 import de.jankahle.capstone.utility.FileUtility;
@@ -18,29 +18,31 @@ import java.util.stream.Collectors;
 @Service
 public class RecipeService {
 
-    private final RecipeMongoDB recipeMongoDB;
-    private  final ImageReaderService imageReaderService;
-    private  final  RecipeTextFilterService textFilterService;
+    private final RecipeDB recipeDB;
+    private final ImageReaderService imageReaderService;
+    private final RecipeTextFilterService textFilterService;
 
     @Autowired
-    public RecipeService(RecipeMongoDB recipeMongoDB, ImageReaderService imageReaderService, RecipeTextFilterService textFilterService) {
-        this.recipeMongoDB = recipeMongoDB;
+    public RecipeService(RecipeDB recipeDB, ImageReaderService imageReaderService, RecipeTextFilterService textFilterService) {
+        this.recipeDB = recipeDB;
         this.imageReaderService = imageReaderService;
         this.textFilterService = textFilterService;
     }
 
     public Recipe saveRecipe(RecipeDto recipeDto) {
         Recipe recipe = recipeDto.toRecipe();
-        recipe.setId(IdUtility.generateId());
-        recipeMongoDB.save(recipe.toDBRecipe());
+        if (recipe.getId().isEmpty()) {
+            recipe.setId(IdUtility.generateId());
+        }
+        recipeDB.save(recipe.toDBRecipe());
 
         return recipe;
     }
 
     public List<Recipe> loadRecipes() {
-        List<DBRecipe> dbRecipes = recipeMongoDB.findAll();
+        List<RecipeDao> recipeDaos = recipeDB.findAll();
 
-        return dbRecipes.stream().map(DBRecipe::toRecipe).collect(Collectors.toList());
+        return recipeDaos.stream().map(RecipeDao::toRecipe).collect(Collectors.toList());
     }
 
     public Recipe generateRecipe(MultipartFile multipartFile) {
@@ -56,6 +58,6 @@ public class RecipeService {
             e.printStackTrace();
         }
 
-        return  Recipe.builder().build();
+        return Recipe.builder().build();
     }
 }

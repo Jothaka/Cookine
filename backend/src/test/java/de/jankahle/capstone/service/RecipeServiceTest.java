@@ -1,7 +1,7 @@
 package de.jankahle.capstone.service;
 
 import de.jankahle.capstone.TestFactory;
-import de.jankahle.capstone.db.RecipeMongoDB;
+import de.jankahle.capstone.db.RecipeDB;
 import de.jankahle.capstone.model.Recipe;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
@@ -14,10 +14,10 @@ import static org.mockito.Mockito.*;
 
 class RecipeServiceTest {
 
-    private final RecipeMongoDB recipeMongoDB = mock(RecipeMongoDB.class);
+    private final RecipeDB recipeDB = mock(RecipeDB.class);
     private  final ImageReaderService readerService = mock(ImageReaderService.class);
     private  final  RecipeTextFilterService filterService = mock(RecipeTextFilterService.class);
-    private final RecipeService recipeService = new RecipeService(recipeMongoDB, readerService, filterService);
+    private final RecipeService recipeService = new RecipeService(recipeDB, readerService, filterService);
 
     @Test
     @DisplayName("Save recipe to DB should return a Recipe equivalent of the RecipeDto")
@@ -29,7 +29,7 @@ class RecipeServiceTest {
         Recipe expected = TestFactory.createPotatoRecipe();
 
         assertThat(actual, Matchers.is(expected));
-        verify(recipeMongoDB).save(expected.toDBRecipe());
+        verify(recipeDB).save(expected.toDBRecipe());
     }
 
     @Test
@@ -39,7 +39,7 @@ class RecipeServiceTest {
         recipeService.saveRecipe(TestFactory.createPotatoDto());
         recipeService.saveRecipe(TestFactory.createPastaDto());
 
-        when(recipeMongoDB.findAll()).thenReturn(List.of(
+        when(recipeDB.findAll()).thenReturn(List.of(
                 TestFactory.createPotatoDBRecipe(),
                 TestFactory.createPastaDBRecipe()));
 
@@ -51,6 +51,6 @@ class RecipeServiceTest {
                 TestFactory.createPotatoRecipe(),
                 TestFactory.createPastaRecipe()));
 
-        verify(recipeMongoDB).findAll();
+        verify(recipeDB).findAll();
     }
 }

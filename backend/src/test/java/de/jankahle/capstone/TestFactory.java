@@ -1,6 +1,6 @@
 package de.jankahle.capstone;
 
-import de.jankahle.capstone.model.DBRecipe;
+import de.jankahle.capstone.model.RecipeDao;
 import de.jankahle.capstone.model.Ingredient;
 import de.jankahle.capstone.model.Recipe;
 import de.jankahle.capstone.model.RecipeDto;
@@ -18,13 +18,14 @@ public class TestFactory {
 
     public static RecipeDto createPotatoDto() {
         return RecipeDto.builder()
+                .id("")
                 .name("Salzkartoffeln")
                 .ingredients(createPotatoIngredientsList())
                 .build();
     }
 
-    public static DBRecipe createPotatoDBRecipe() {
-        return DBRecipe.builder()
+    public static RecipeDao createPotatoDBRecipe() {
+        return RecipeDao.builder()
                 .name("Salzkartoffeln")
                 .ingredients(createPotatoIngredientsList())
                 .build();
@@ -44,8 +45,8 @@ public class TestFactory {
                 .build();
     }
 
-    public static DBRecipe createPastaDBRecipe() {
-        return DBRecipe.builder()
+    public static RecipeDao createPastaDBRecipe() {
+        return RecipeDao.builder()
                 .name("Pasta")
                 .ingredients(createPastaIngredients())
                 .build();
@@ -53,6 +54,7 @@ public class TestFactory {
 
     public static RecipeDto createPastaDto() {
         return RecipeDto.builder()
+                .id("")
                 .name("Pasta")
                 .ingredients(createPastaIngredients())
                 .build();
