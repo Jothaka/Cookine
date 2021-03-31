@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Document(collection = "recipes")
-public class DBRecipe {
+public class RecipeDao {
     @EqualsAndHashCode.Exclude
     @Id
     private String id;

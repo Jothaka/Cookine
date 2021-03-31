@@ -14,8 +14,8 @@ public class Recipe {
     private String name;
     private List<Ingredient> ingredients;
 
-    public DBRecipe toDBRecipe() {
-        return DBRecipe.builder()
+    public RecipeDao toDBRecipe() {
+        return RecipeDao.builder()
                 .id(id)
                 .name(name)
                 .ingredients(ingredients)
