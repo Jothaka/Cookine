@@ -24,7 +24,7 @@ const CardContentOrder = styled.div`
 `
 
 const cardStyle = {
-    backgroundColor: "var(--backgroundColorPrimary)",
+    //backgroundColor: "var(--backgroundColorPrimary)",
     borderColor: "var(--borderColor)",
     borderStyle: "solid"
 }

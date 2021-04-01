@@ -30,7 +30,7 @@ function App() {
                 {draft && <RecipeDraft
                     recipe={draft}
                     onRecipeNameUpdated={onDraftNameUpdated}
-                    onIngredientsUpdated={onDraftIngredientsUpdated}
+                    onIngredientsUpdate={onDraftIngredientsUpdated}
                     saveDraft={saveDraft}/>}
             </Route>
         </Switch>
