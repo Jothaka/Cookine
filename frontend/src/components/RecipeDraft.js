@@ -3,7 +3,6 @@ import {useState} from "react";
 import IngredientEditor from "./IngredientEditor";
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import {CheckOutlined} from "@material-ui/icons";
-import styled from "styled-components/macro";
 
 export default function RecipeDraft({recipe, onRecipeNameUpdated, onIngredientsUpdate, saveDraft}) {
     const [ingredients, setIngredients] = useState(recipe.ingredients);
@@ -66,12 +65,12 @@ export default function RecipeDraft({recipe, onRecipeNameUpdated, onIngredientsU
                         onDelete={onDeleteIngredient}
                     />
                 ))}
-                <ButtonWrapper>
-                    <IconButton type="button" onClick={onAddIngredient}>
+
+                    <IconButton className={classes.btnLeft} type="button" onClick={onAddIngredient}>
                         <AddCircleOutlineOutlinedIcon/>
                     </IconButton>
-                    <Button type="submit"><CheckOutlined/></Button>
-                </ButtonWrapper>
+                    <Button className={classes.btnRight} type="submit"><CheckOutlined/></Button>
+
             </form>
         </>
     )
@@ -88,9 +87,12 @@ const useStyles = makeStyles((theme) => ({
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
         },
+    },
+    btnLeft: {
+        float:'left'
+    },
+    btnRight: {
+        float:'right'
     }
 }));
 
-const ButtonWrapper = styled.div`
-  align-content: space-between;
-`
