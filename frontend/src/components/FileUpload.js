@@ -6,7 +6,6 @@ import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOut
 const useStyles = makeStyles((theme) => ({
     btnChoose: {
         color: "var(--backgroundColorForms)",
-        boxShadow: "2px 2px blur black",
         bottom: theme.spacing(2),
         right: theme.spacing(2),
         position: "fixed"
