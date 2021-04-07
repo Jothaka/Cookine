@@ -29,4 +29,9 @@ public class RecipeController {
     public List<Recipe> loadRecipes() {
         return recipeService.loadRecipes();
     }
+
+    @DeleteMapping("{recipeId}")
+    public void deleteRecipe(@PathVariable String recipeId) {
+        recipeService.deleteRecipe(recipeId);
+    }
 }
