@@ -21,7 +21,7 @@ export default function FileUpload({onDraftReceived}) {
 
     return (
         <form onSubmit={onFormSubmit}>
-            <h1>File Upload</h1>
+            <h3>File Upload</h3>
             <input type="file" name="file" onChange={onChange} accept="image/*"/>
             <button type="submit">Upload</button>
         </form>
