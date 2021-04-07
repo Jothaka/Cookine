@@ -5,6 +5,7 @@ import {getAllRecipes} from "./services/recipeApiService";
 import {Route, Switch} from 'react-router-dom';
 import RecipeDraft from "./components/RecipeDraft";
 import useDraftHooks from "./hooks/DraftHooks";
+import styled from "styled-components/macro";
 
 function App() {
     const [recipes, setRecipes] = useState([]);
@@ -21,20 +22,27 @@ function App() {
         [])
 
     return (
-        <Switch>
-            <Route exact path="/">
-                <RecipeList recipes={recipes}/>
-                <FileUpload onDraftReceived={onDraftReceived}/>
-            </Route>
-            <Route path="/draft">
-                {draft && <RecipeDraft
-                    recipe={draft}
-                    onRecipeNameUpdated={onDraftNameUpdated}
-                    onIngredientsUpdate={onDraftIngredientsUpdated}
-                    saveDraft={saveDraft}/>}
-            </Route>
-        </Switch>
+            <Switch>
+                <Route exact path="/">
+                    <Wrapper>
+                        <RecipeList recipes={recipes}/>
+                        <FileUpload onDraftReceived={onDraftReceived}/>
+                    </Wrapper>
+                </Route>
+                <Route path="/draft">
+                    {draft && <RecipeDraft
+                        recipe={draft}
+                        onRecipeNameUpdated={onDraftNameUpdated}
+                        onIngredientsUpdate={onDraftIngredientsUpdated}
+                        saveDraft={saveDraft}/>}
+                </Route>
+            </Switch>
     );
 }
+
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-rows: 1fr auto;
+`
 
 export default App;

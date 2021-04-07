@@ -3,6 +3,22 @@ import {useState} from "react";
 import styled from "styled-components/macro";
 import {CancelOutlined} from "@material-ui/icons";
 
+const useStyles = makeStyles(() => ({
+    cancel: {
+        width: "auto",
+        color:"var(--borderColor)"
+    },
+    amount: {
+        width: '10%'
+    },
+    unit: {
+        width: '17%'
+    },
+    title: {
+        width: '65%'
+    }
+}));
+
 export default function IngredientEditor({ingredient, onChange, onDelete}) {
     const [ingredientData, setIngredientData] = useState(ingredient)
     const classes = useStyles();
@@ -31,6 +47,7 @@ export default function IngredientEditor({ingredient, onChange, onDelete}) {
                 id="amount"
                 value={ingredientData.amount}
                 onChange={onDataChanged}
+                color="secondary"
                 inputProps={{'aria-label': 'Menge'}}
                 className={classes.amount}
             />
@@ -39,6 +56,7 @@ export default function IngredientEditor({ingredient, onChange, onDelete}) {
                 id="measurementUnit"
                 value={ingredientData.measurementUnit}
                 onChange={onDataChanged}
+                color="secondary"
                 inputProps={{'aria-label': 'Einheit'}}
                 className={classes.unit}
             />
@@ -47,7 +65,8 @@ export default function IngredientEditor({ingredient, onChange, onDelete}) {
                 id="name"
                 value={ingredientData.name}
                 onChange={onDataChanged}
-                inputProps={{'aria-label': 'Name',}}
+                color="secondary"
+                inputProps={{'aria-label': 'Name'}}
                 className={classes.title}
             />
         </IngredientData>
@@ -57,18 +76,3 @@ export default function IngredientEditor({ingredient, onChange, onDelete}) {
 const IngredientData = styled.div`
   display: flex;
 `
-
-const useStyles = makeStyles(() => ({
-    cancel: {
-        width: "auto"
-    },
-    amount: {
-        width: '10%'
-    },
-    unit: {
-        width: '17%'
-    },
-    title: {
-        width: '65%'
-    }
-}));

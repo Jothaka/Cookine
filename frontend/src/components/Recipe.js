@@ -6,7 +6,6 @@ import IngredientList from "./IngredientList";
 export default function Recipe({recipe}) {
     const [showDetails, setShowDetails] = useState(false)
 
-
     return (
         <ListItem>
             <Card style={showDetails ? cardStyleSelected : cardStyle}>
@@ -18,7 +17,7 @@ export default function Recipe({recipe}) {
                     </CardActionArea>
                 </CardContent>
             </Card>
-            {showDetails && <IngredientList ingredients={recipe.ingredients}/> }
+            {showDetails && <IngredientList ingredients={recipe.ingredients}/>}
         </ListItem>
     )
 }
@@ -32,12 +31,17 @@ const CardContentOrder = styled.div`
 `
 
 const cardStyle = {
+    backgroundColor: "var(--backgroundColorSecondary)",
     borderColor: "var(--borderColor)",
-    borderStyle: "solid"
+    borderStyle: "solid",
+    color: "var(--backgroundColorForms)",
+    borderRadius: "20px"
 }
 
 const cardStyleSelected = {
-    backgroundColor: "var(--backgroundColorPrimary)",
+    backgroundColor: "var(--backgroundColorSecondary)",
     borderColor: "var(--borderColor)",
-    borderStyle: "solid"
+    borderStyle: "solid",
+    color: "var(--backgroundColorForms)",
+    borderRadius: "20px"
 }

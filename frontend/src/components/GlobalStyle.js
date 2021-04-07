@@ -2,9 +2,13 @@ import {createGlobalStyle} from "styled-components";
 
 export default createGlobalStyle`
   :root {
-    --backgroundColorPrimary: #5BC8AC;
-    --backgroundColorSecondary: #F18D9E;
-    --backgroundColorForms: #E6D72A;
-    --borderColor: #98DBC6;
+    --backgroundColorSecondary: #363237;
+    --backgroundColorForms: #D09683;
+    --borderColor: #73605B;
+  }
+  html,body {
+    height: 100%;
+    background-color: var(--backgroundColorSecondary);
+    color: var(--backgroundColorForms);
   }
 `

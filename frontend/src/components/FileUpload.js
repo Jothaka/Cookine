@@ -1,29 +1,48 @@
 import {fileUpload} from "../services/fileUploadService";
-import {useState} from "react";
 import {useHistory} from "react-router-dom";
+import {IconButton, makeStyles} from "@material-ui/core";
+import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
+
+const useStyles = makeStyles((theme) => ({
+    btnChoose: {
+        color: "var(--backgroundColorForms)",
+        boxShadow: "2px 2px blur black",
+        bottom: theme.spacing(2),
+        right: theme.spacing(2),
+        position: "fixed"
+    }
+}))
 
 export default function FileUpload({onDraftReceived}) {
 
-    const [file, setFile] = useState(undefined);
-    const history =  useHistory();
+    const history = useHistory();
+    const classes = useStyles();
 
-    const onFormSubmit = (formEvent) => {
-        formEvent.preventDefault();
-        fileUpload(file).then((response) => {
+    const onChange = (changeEvent) => {
+        fileUpload(changeEvent.target.files[0]).then((response) => {
             onDraftReceived(response);
             history.push("/draft");
         })
     }
 
-    const onChange = (changeEvent) => {
-        setFile(changeEvent.target.files[0]);
-    }
-
     return (
-        <form onSubmit={onFormSubmit}>
-            <h3>File Upload</h3>
-            <input type="file" name="file" onChange={onChange} accept="image/*"/>
-            <button type="submit">Upload</button>
-        </form>
+        <div>
+            <label htmlFor="btn-upload">
+                <input
+                    id="btn-upload"
+                    name="btn-upload"
+                    style={{display: "none"}}
+                    type="file"
+                    accept="image/*"
+                    onChange={onChange}/>
+                <IconButton
+                    className={classes.btnChoose}
+                    variant="outlined"
+                    component="span"
+                >
+                    <AddCircleOutlineOutlinedIcon style={{fontSize: 50}}/>
+                </IconButton>
+            </label>
+        </div>
     );
 }
