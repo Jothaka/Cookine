@@ -13,6 +13,7 @@ export default function RecipeList({recipes}) {
 
 const List = styled.ul`
   list-style: none;
+  overflow-y: scroll;
   padding: 2px;
   margin: 1px;
 `

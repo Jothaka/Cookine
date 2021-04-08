@@ -6,7 +6,8 @@ const useStyles = makeStyles(() => ({
         maxWidth: 360,
         backgroundColor: "var(--borderColor)",
         display: "flex",
-        padding: "0"
+        padding: "0",
+        borderRadius: "10px"
     },
     unit: {
         width: '19%',
