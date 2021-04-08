@@ -1,11 +1,9 @@
-import FileUpload from "./components/FileUpload";
-import RecipeList from "./components/RecipeList";
 import {useEffect, useState} from "react";
 import {getAllRecipes} from "./services/recipeApiService";
 import {Route, Switch} from 'react-router-dom';
 import RecipeDraft from "./components/RecipeDraft";
 import useDraftHooks from "./hooks/DraftHooks";
-import styled from "styled-components/macro";
+import MainPage from "./pages/MainPage";
 
 function App() {
     const [recipes, setRecipes] = useState([]);
@@ -24,10 +22,7 @@ function App() {
     return (
             <Switch>
                 <Route exact path="/">
-                    <Wrapper>
-                        <RecipeList recipes={recipes}/>
-                        <FileUpload onDraftReceived={onDraftReceived}/>
-                    </Wrapper>
+                    <MainPage onDraftReceived={onDraftReceived} recipes={recipes} />
                 </Route>
                 <Route path="/draft">
                     {draft && <RecipeDraft
@@ -39,10 +34,5 @@ function App() {
             </Switch>
     );
 }
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-rows: 1fr auto;
-`
 
 export default App;

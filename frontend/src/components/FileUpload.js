@@ -17,23 +17,25 @@ export default function FileUpload({onDraftReceived}) {
     const history = useHistory();
     const classes = useStyles();
 
-    const onChange = (changeEvent) => {
-        fileUpload(changeEvent.target.files[0]).then((response) => {
-            onDraftReceived(response);
-            history.push("/draft");
-        })
+    const uploadFile = (changeEvent) => {
+        fileUpload(changeEvent.target.files[0])
+            .then((recipeDraft) => {
+                onDraftReceived(recipeDraft);
+                history.push("/draft");
+            })
+            .catch((error) => console.error(error))
     }
 
     return (
         <div>
-            <label htmlFor="btn-upload">
+            <label>
                 <input
                     id="btn-upload"
                     name="btn-upload"
                     style={{display: "none"}}
                     type="file"
                     accept="image/*"
-                    onChange={onChange}/>
+                    onChange={uploadFile}/>
                 <IconButton
                     className={classes.btnChoose}
                     variant="outlined"
@@ -42,6 +44,7 @@ export default function FileUpload({onDraftReceived}) {
                     <AddCircleOutlineOutlinedIcon style={{fontSize: 50}}/>
                 </IconButton>
             </label>
+
         </div>
     );
 }
