@@ -45,6 +45,10 @@ public class RecipeService {
         return recipeDaos.stream().map(RecipeDao::toRecipe).collect(Collectors.toList());
     }
 
+    public void deleteRecipe(String recipeId) {
+        recipeDB.deleteById(recipeId);
+    }
+
     public Recipe generateRecipe(MultipartFile multipartFile) {
 
         try {
