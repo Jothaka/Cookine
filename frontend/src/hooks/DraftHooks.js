@@ -30,7 +30,7 @@ export default function useDraftHooks(setRecipes, recipes) {
                 setRecipes([...recipes, response])
                 history.push("/")
             }
-        )
+        ).catch((error)=>console.log(error))
     }
 
     return [onDraftReceived, onDraftNameUpdated, onDraftIngredientsUpdated, saveDraft, draft];

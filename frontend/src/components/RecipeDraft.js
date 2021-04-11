@@ -50,7 +50,7 @@ export default function RecipeDraft({recipe, onRecipeNameUpdated, onIngredientsU
         const id = uuid();
         setIngredients(
             [...ingredients, {
-                "id": {id},
+                "id": `${id}`,
                 "name": "",
                 "measurementUnit": "",
                 "amount": ""
@@ -58,7 +58,7 @@ export default function RecipeDraft({recipe, onRecipeNameUpdated, onIngredientsU
         )
         onIngredientsUpdate(
             [...ingredients, {
-                "id": id,
+                "id": `${id}`,
                 "name": "",
                 "measurementUnit": "",
                 "amount": ""
