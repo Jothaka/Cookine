@@ -1,9 +1,10 @@
 import styled from "styled-components/macro";
-import {Card, CardActionArea, CardContent, Typography} from "@material-ui/core";
+import {Card, CardActionArea, CardContent, IconButton, Typography} from "@material-ui/core";
 import {useState} from "react";
 import IngredientList from "./IngredientList";
+import {CancelOutlined} from "@material-ui/icons";
 
-export default function Recipe({recipe}) {
+export default function Recipe({recipe, onDelete}) {
     const [showDetails, setShowDetails] = useState(false)
 
     return (
@@ -17,7 +18,16 @@ export default function Recipe({recipe}) {
                     </CardActionArea>
                 </CardContent>
             </Card>
-            {showDetails && <IngredientList ingredients={recipe.ingredients}/>}
+            {showDetails &&
+            <div>
+                <IngredientList ingredients={recipe.ingredients}/>
+                <IconButton type="button"
+                            style={{color: "var(--borderColor)"}}
+                            onClick={() => onDelete(recipe)}>
+                    <CancelOutlined/>
+                </IconButton>
+            </div>
+            }
         </ListItem>
     )
 }

@@ -11,3 +11,6 @@ export const saveRecipe = (recipe) =>
         "name": recipe.name,
         "ingredients": recipe.ingredients
     }).then((response) => response.data)
+
+export const deleteRecipe = (recipe) =>
+    axios.delete(`${recipeUrl}/${recipe.id}`);

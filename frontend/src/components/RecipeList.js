@@ -1,11 +1,11 @@
 import styled from "styled-components/macro";
 import Recipe from "./Recipe";
 
-export default function RecipeList({recipes}) {
+export default function RecipeList({recipes, onDelete}) {
     return (
         <List>
             {recipes.map((recipe)=>(
-                <Recipe recipe={recipe} key={recipe.id} />
+                <Recipe recipe={recipe} key={recipe.id} onDelete={onDelete} />
             ))}
         </List>
     )
