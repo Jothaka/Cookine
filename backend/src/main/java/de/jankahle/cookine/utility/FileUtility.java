@@ -1,4 +1,4 @@
-package de.jankahle.capstone.utility;
+package de.jankahle.cookine.utility;
 
 import org.springframework.web.multipart.MultipartFile;
 

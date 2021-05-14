@@ -1,4 +1,4 @@
-package de.jankahle.capstone.model;
+package de.jankahle.cookine.model;
 
 import lombok.*;
 

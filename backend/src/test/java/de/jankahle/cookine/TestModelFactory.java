@@ -1,13 +1,13 @@
-package de.jankahle.capstone;
+package de.jankahle.cookine;
 
-import de.jankahle.capstone.model.RecipeDao;
-import de.jankahle.capstone.model.Ingredient;
-import de.jankahle.capstone.model.Recipe;
-import de.jankahle.capstone.model.RecipeDto;
+import de.jankahle.cookine.model.RecipeDao;
+import de.jankahle.cookine.model.Ingredient;
+import de.jankahle.cookine.model.Recipe;
+import de.jankahle.cookine.model.RecipeDto;
 
 import java.util.List;
 
-public class TestFactory {
+public class TestModelFactory {
 
     public static Recipe createPotatoRecipe() {
         return Recipe.builder()

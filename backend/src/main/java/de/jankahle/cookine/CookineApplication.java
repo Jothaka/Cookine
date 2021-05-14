@@ -1,12 +1,12 @@
-package de.jankahle.capstone;
+package de.jankahle.cookine;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CapstoneApplication {
+public class CookineApplication {
     public static void main(String[] args) {
-        SpringApplication.run(CapstoneApplication.class, args);
+        SpringApplication.run(CookineApplication.class, args);
     }
 
 }

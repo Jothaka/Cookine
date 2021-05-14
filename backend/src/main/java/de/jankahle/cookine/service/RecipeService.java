@@ -1,11 +1,11 @@
-package de.jankahle.capstone.service;
+package de.jankahle.cookine.service;
 
-import de.jankahle.capstone.db.RecipeDB;
-import de.jankahle.capstone.model.RecipeDao;
-import de.jankahle.capstone.model.Recipe;
-import de.jankahle.capstone.model.RecipeDto;
-import de.jankahle.capstone.utility.FileUtility;
-import de.jankahle.capstone.utility.IdUtility;
+import de.jankahle.cookine.db.RecipeDB;
+import de.jankahle.cookine.model.RecipeDao;
+import de.jankahle.cookine.model.Recipe;
+import de.jankahle.cookine.model.RecipeDto;
+import de.jankahle.cookine.utility.FileUtility;
+import de.jankahle.cookine.utility.IdUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

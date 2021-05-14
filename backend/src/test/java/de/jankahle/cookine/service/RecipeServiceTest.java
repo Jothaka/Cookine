@@ -1,10 +1,11 @@
-package de.jankahle.capstone.service;
+package de.jankahle.cookine.service;
 
-import de.jankahle.capstone.TestFactory;
-import de.jankahle.capstone.db.RecipeDB;
-import de.jankahle.capstone.model.Recipe;
+import de.jankahle.cookine.TestModelFactory;
+import de.jankahle.cookine.db.RecipeDB;
+import de.jankahle.cookine.model.Recipe;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -20,36 +21,38 @@ class RecipeServiceTest {
     private final RecipeService recipeService = new RecipeService(recipeDB, readerService, filterService);
 
     @Test
+    @Tag("Unit")
     @DisplayName("Save recipe to DB should return a Recipe equivalent of the RecipeDto")
     void saveRecipe() {
         //When
-        Recipe actual = recipeService.saveRecipe(TestFactory.createPotatoDto());
+        Recipe actual = recipeService.saveRecipe(TestModelFactory.createPotatoDto());
 
         //Then
-        Recipe expected = TestFactory.createPotatoRecipe();
+        Recipe expected = TestModelFactory.createPotatoRecipe();
 
         assertThat(actual, Matchers.is(expected));
         verify(recipeDB).save(expected.toDBRecipe());
     }
 
     @Test
+    @Tag("Unit")
     @DisplayName("Load recipes from DB should return a List of Recipes equivalent to the saved ones")
     void loadRecipesFromDB() {
         //Given
-        recipeService.saveRecipe(TestFactory.createPotatoDto());
-        recipeService.saveRecipe(TestFactory.createPastaDto());
+        recipeService.saveRecipe(TestModelFactory.createPotatoDto());
+        recipeService.saveRecipe(TestModelFactory.createPastaDto());
 
         when(recipeDB.findAll()).thenReturn(List.of(
-                TestFactory.createPotatoDBRecipe(),
-                TestFactory.createPastaDBRecipe()));
+                TestModelFactory.createPotatoDBRecipe(),
+                TestModelFactory.createPastaDBRecipe()));
 
         //When
         List<Recipe> actualList = recipeService.loadRecipes();
 
         //Then
         assertThat(actualList, Matchers.containsInAnyOrder(
-                TestFactory.createPotatoRecipe(),
-                TestFactory.createPastaRecipe()));
+                TestModelFactory.createPotatoRecipe(),
+                TestModelFactory.createPastaRecipe()));
 
         verify(recipeDB).findAll();
     }

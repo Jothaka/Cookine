@@ -1,6 +1,6 @@
-package de.jankahle.capstone.db;
+package de.jankahle.cookine.db;
 
-import de.jankahle.capstone.model.RecipeDao;
+import de.jankahle.cookine.model.RecipeDao;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;

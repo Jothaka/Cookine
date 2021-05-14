@@ -1,9 +1,10 @@
-package de.jankahle.capstone.service;
+package de.jankahle.cookine.service;
 
-import de.jankahle.capstone.model.Ingredient;
-import de.jankahle.capstone.model.Recipe;
+import de.jankahle.cookine.model.Ingredient;
+import de.jankahle.cookine.model.Recipe;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -14,6 +15,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RecipeTextFilterServiceTest {
 
@@ -47,7 +49,8 @@ class RecipeTextFilterServiceTest {
             "0 Den Gratin ca. 50 Minuten im Ofen garen, bis es leicht gebräunt ist. Die Petersilie waschen,\n" +
             "trocken tupfen und fein schneiden. Den Kartoffelgratin mit der Petersilie bestreut servieren.\n";
 
-    @DisplayName("A provided recipe string should properly extract all Ingredients an create a Recipe")
+    @Tag("Unit")
+    @DisplayName("A provided recipe string should properly extract all Ingredients and create a Recipe")
     @Test
     void parseStringToRecipeTest() {
         //Given
@@ -62,7 +65,7 @@ class RecipeTextFilterServiceTest {
                 .name("")
                 .build();
 
-        assertThat(actual, Matchers.is(expected));
+        assertEquals(expected,actual);
     }
 
     private List<Ingredient> getTestRecipeIngredients() {
@@ -110,6 +113,7 @@ class RecipeTextFilterServiceTest {
         );
     }
 
+    @Tag("Unit")
     @DisplayName("A provided String should return a valid ingredient if there is one included")
     @ParameterizedTest
     @MethodSource

@@ -1,8 +1,8 @@
-package de.jankahle.capstone.controller;
+package de.jankahle.cookine.controller;
 
-import de.jankahle.capstone.model.Recipe;
-import de.jankahle.capstone.service.RecipeService;
-import de.jankahle.capstone.utility.ImageUtility;
+import de.jankahle.cookine.model.Recipe;
+import de.jankahle.cookine.service.RecipeService;
+import de.jankahle.cookine.utility.ImageUtility;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
