@@ -1,10 +1,11 @@
-package de.jankahle.capstone.controller;
+package de.jankahle.cookine.controller;
 
-import de.jankahle.capstone.model.Ingredient;
-import de.jankahle.capstone.model.Recipe;
+import de.jankahle.cookine.model.Ingredient;
+import de.jankahle.cookine.model.Recipe;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,6 +32,7 @@ class FileUploadControllerTest {
     private TestRestTemplate testRestTemplate;
 
     @DisplayName("An uploaded image of an recipe returns a correct Recipe")
+    @Tag("Integration")
     @Test
     void parseFileToRecipeTest() {
         //Given

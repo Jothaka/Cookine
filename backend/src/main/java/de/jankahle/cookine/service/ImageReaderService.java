@@ -1,4 +1,4 @@
-package de.jankahle.capstone.service;
+package de.jankahle.cookine.service;
 
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;

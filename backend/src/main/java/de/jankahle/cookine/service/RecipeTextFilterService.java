@@ -1,14 +1,14 @@
-package de.jankahle.capstone.service;
+package de.jankahle.cookine.service;
 
-import de.jankahle.capstone.model.Ingredient;
-import de.jankahle.capstone.model.Recipe;
+import de.jankahle.cookine.model.Ingredient;
+import de.jankahle.cookine.model.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.*;
 
-import de.jankahle.capstone.utility.IdUtility;
+import de.jankahle.cookine.utility.IdUtility;
 import org.springframework.stereotype.Service;
 
 

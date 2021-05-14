@@ -1,4 +1,4 @@
-package de.jankahle.capstone.utility;
+package de.jankahle.cookine.utility;
 
 import java.util.List;
 
